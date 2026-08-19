@@ -3,82 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us | DARK STAR CULINARY</title>
-  <meta name="description" content="Get in touch with Dark Star Culinary for press, partnerships, and private event consultations.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>★</text></svg>">
+  <title>Contact Culinary Desk | Dark Star Culinary</title>
+  <meta name="description" content="Contact Dark Star Culinary operations regarding general culinary inquiries, press, or hospitality collaborations.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23080706' stroke='%23dfb260' stroke-width='6'/><circle cx='50' cy='50' r='18' fill='%23dfb260'/></svg>">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-  <canvas id="ambient-canvas"></canvas>
 
-  <header class="dsc-header">
-    <a href="/" class="brand-mark">
-      <span class="brand-star">★</span>
+  <!-- HEADER NAVIGATION -->
+  <header class="culinary-header">
+    <a href="/" class="brand-mark" aria-label="Dark Star Culinary Home">
+      <svg class="brand-svg" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#dfb260" stroke-width="6"/>
+        <circle cx="50" cy="50" r="20" fill="#dfb260"/>
+      </svg>
       <span class="brand-title">DARK STAR CULINARY</span>
     </a>
-    <nav class="dsc-nav">
+
+    <nav class="culinary-nav" aria-label="Main Navigation">
       <a href="/" class="nav-link">Home</a>
       <a href="/about.html" class="nav-link">About</a>
-      <a href="/gallery.html" class="nav-link">Portfolio</a>
+      <a href="/gallery.html" class="nav-link">Gallery</a>
       <a href="/private-events.html" class="nav-link">Private Events</a>
       <a href="/contact.html" class="nav-link active">Contact</a>
     </nav>
-    <a href="/private-events.html" class="cta-button">Inquire Now</a>
+
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <a href="/private-events.html" class="cta-button">Inquire ↗</a>
+      <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
+    </div>
   </header>
 
   <main style="padding-top: 8rem;">
     <section class="section-wrapper">
       <div class="section-header">
-        <span class="section-tag">DIRECT COMMUNICATION</span>
-        <h1 class="section-title">Contact Culinary Division</h1>
+        <span class="hero-tag">OPERATIONS DESK</span>
+        <h1 class="section-title">General Contact</h1>
+        <p style="color:var(--text-muted); max-width:640px; margin:1rem auto 0; font-size:1.05rem; line-height:1.7;">
+          Direct communication desk for general culinary inquiries, supplier communications, or venue collaborations.
+        </p>
       </div>
 
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; max-width: 1000px; margin: 0 auto;">
-        <div style="background: var(--bg-card); border: 1px solid var(--border-gold); padding: 2.5rem; border-radius: 4px;">
-          <h3 style="font-family: var(--font-serif); color: var(--accent-gold); font-size: 1.4rem; margin-bottom: 1.5rem;">Direct Concierge</h3>
-          <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.7;">
-            For private event proposals, please use our dedicated inquiry portal for expedited review.
-          </p>
-          <a href="/private-events.html" class="cta-button" style="width: 100%; justify-content: center; margin-bottom: 2rem;">Go To Event Inquiry Portal</a>
+      <div style="max-width:860px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:3rem;">
+        <!-- NETLIFY GENERAL FORM -->
+        <div>
+          <form name="general-contact" method="POST" data-netlify="true" action="/contact.html?submitted=true">
+            <input type="hidden" name="form-name" value="general-contact" />
+            <input type="hidden" name="bot-field" />
 
-          <h4 style="font-family: var(--font-serif); color: #fff; font-size: 1.1rem; margin-bottom: 0.5rem;">Official Inquiries</h4>
-          <p style="color: var(--accent-gold); font-size: 0.95rem;">dark.star.consulting.corp@gmail.com</p>
+            <div class="form-group">
+              <label for="name" class="form-label">Full Name *</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address *</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="name@domain.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Message *</label>
+              <textarea id="message" name="message" class="form-textarea" placeholder="How can we assist you?" required></textarea>
+            </div>
+
+            <button type="submit" class="cta-button" style="width:100%; justify-content:center; padding:1rem; font-size:0.95rem;">
+              Send Message ↗
+            </button>
+          </form>
         </div>
 
-        <div style="background: var(--bg-card); border: 1px solid var(--border-muted); padding: 2.5rem; border-radius: 4px;">
-          <h3 style="font-family: var(--font-serif); color: #fff; font-size: 1.4rem; margin-bottom: 1.5rem;">General Message</h3>
-          <form onsubmit="event.preventDefault(); alert('Thank you for your message. Our culinary team will respond shortly.'); this.reset();">
-            <div class="form-group">
-              <label for="c_name">Name *</label>
-              <input type="text" id="c_name" class="form-input" required placeholder="Your Name">
-            </div>
-            <div class="form-group">
-              <label for="c_email">Email *</label>
-              <input type="email" id="c_email" class="form-input" required placeholder="name@domain.com">
-            </div>
-            <div class="form-group">
-              <label for="c_msg">Message *</label>
-              <textarea id="c_msg" class="form-textarea" rows="4" required placeholder="How can we assist you?"></textarea>
-            </div>
-            <button type="submit" class="cta-button" style="width: 100%; justify-content: center;">Send Message</button>
-          </form>
+        <!-- DIRECT INFO -->
+        <div style="display:flex; flex-direction:column; gap:2rem;">
+          <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:6px; padding:2rem;">
+            <span class="hero-tag" style="font-size:0.75rem;">DIRECT EMAIL</span>
+            <h3 style="font-family:var(--font-editorial); font-size:1.3rem; color:#fff; margin:0.3rem 0 0.8rem;">Culinary Operations Desk</h3>
+            <a href="mailto:darkstarconsulting.dev@gmail.com" style="color:var(--accent-amber); font-size:1.05rem; font-weight:700; text-decoration:none;">darkstarconsulting.dev@gmail.com</a>
+          </div>
+
+          <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:6px; padding:2rem;">
+            <span class="hero-tag" style="font-size:0.75rem;">OPERATIONAL BASE</span>
+            <h3 style="font-family:var(--font-editorial); font-size:1.3rem; color:#fff; margin:0.3rem 0 0.8rem;">Charlotte, NC</h3>
+            <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">
+              Serving Charlotte and surrounding North Carolina agricultural regions. Destination private event travel available by inquiry.
+            </p>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="dsc-footer">
+  <!-- FOOTER -->
+  <footer class="culinary-footer">
     <div class="footer-content">
-      <a href="https://dscuniverse.netlify.app" class="universe-gateway">
-        <span class="universe-mark">🌌</span>
-        <div class="universe-text">
-          <h4>DARK STAR UNIVERSE</h4>
-          <p>Return to the Central Ecosystem Hub</p>
+      <a href="https://dscuniverse.netlify.app" class="universe-gateway" aria-label="Return to Dark Star Universe Central Hub">
+        <svg style="width:24px; height:24px; fill:var(--accent-amber);" viewBox="0 0 100 100">
+          <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36"/>
+        </svg>
+        <div style="text-align:left;">
+          <h4 style="font-family:var(--font-editorial); color:#fff; font-size:0.95rem;">DARK STAR UNIVERSE</h4>
+          <p style="font-size:0.8rem; color:var(--text-muted);">Central Ecosystem Hub</p>
         </div>
       </a>
-      <div class="footer-credits">
-        <p>© 2026 DARK STAR CULINARY. Member of Dark Star Ecosystem.</p>
-      </div>
+
+      <p style="font-size:0.85rem; color:var(--text-dim);">
+        © 2026 Dark Star Culinary. Executive Chef Devin O'Rourke. Charlotte, NC. Member of Dark Star Ecosystem.
+      </p>
     </div>
   </footer>
 

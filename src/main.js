@@ -1,177 +1,178 @@
-// DARK STAR CULINARY ENGINE
+// ==========================================================================
+// DARK STAR CULINARY — CLIENT ENGINE
+// Lightbox Gallery, Mobile Nav, Multi-Step Form Validation & Netlify Submission
+// Zero localStorage persistence.
+// ==========================================================================
+
 document.addEventListener('DOMContentLoaded', () => {
-  initParticleBackground();
-  initScrollHeader();
-  initGallery();
-  initPrivateEventForm();
+  initMobileNav();
+  initLightbox();
+  initMultiStepForm();
+  initFormSuccessCheck();
 });
 
-// Canvas Particle Engine (Floating embers)
-function initParticleBackground() {
-  const canvas = document.getElementById('ambient-canvas');
-  if (!canvas) return;
+// 1. MOBILE NAVIGATION TOGGLE
+function initMobileNav() {
+  const toggleBtn = document.querySelector('.mobile-menu-toggle');
+  const navMenu = document.querySelector('.culinary-nav');
 
-  // Check prefers-reduced-motion
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    canvas.style.display = 'none';
-    return;
-  }
+  if (!toggleBtn || !navMenu) return;
 
-  const ctx = canvas.getContext('2d');
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
-
-  window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+  toggleBtn.addEventListener('click', () => {
+    const isActive = navMenu.classList.toggle('is-active');
+    toggleBtn.setAttribute('aria-expanded', isActive);
   });
 
-  const particles = [];
-  const particleCount = Math.min(width < 768 ? 25 : 50, 60);
-
-  for (let i = 0; i < particleCount; i++) {
-    particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: Math.random() * 1.8 + 0.5,
-      alpha: Math.random() * 0.6 + 0.2,
-      speedY: -(Math.random() * 0.4 + 0.1),
-      speedX: (Math.random() - 0.5) * 0.2,
-      pulse: Math.random() * 0.02 + 0.005
-    });
-  }
-
-  function render() {
-    ctx.clearRect(0, 0, width, height);
-
-    particles.forEach(p => {
-      p.y += p.speedY;
-      p.x += p.speedX;
-
-      if (p.y < -10) {
-        p.y = height + 10;
-        p.x = Math.random() * width;
-      }
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(223, 178, 96, ${p.alpha})`;
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = '#dfb260';
-      ctx.fill();
-    });
-
-    requestAnimationFrame(render);
-  }
-
-  render();
-}
-
-function initScrollHeader() {
-  const header = document.querySelector('.dsc-header');
-  if (!header) return;
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+  document.addEventListener('click', (e) => {
+    if (!toggleBtn.contains(e.target) && !navMenu.contains(e.target)) {
+      navMenu.classList.remove('is-active');
+      toggleBtn.setAttribute('aria-expanded', 'false');
     }
   });
 }
 
-// Gallery Lightbox & Filtering
-function initGallery() {
-  const filterBtns = document.querySelectorAll('.gallery-filter');
-  const items = document.querySelectorAll('.gallery-item');
+// 2. LIGHTBOX GALLERY ENGINE
+function initLightbox() {
+  const modal = document.getElementById('lightbox-modal');
+  if (!modal) return;
 
-  filterBtns.forEach(btn => {
+  const modalImg = modal.querySelector('.lightbox-img');
+  const modalTitle = modal.querySelector('.lightbox-title');
+  const modalSub = modal.querySelector('.lightbox-sub');
+  const closeBtn = modal.querySelector('.lightbox-close');
+  const prevBtn = modal.querySelector('.lightbox-nav.prev');
+  const nextBtn = modal.querySelector('.lightbox-nav.next');
+
+  const triggers = Array.from(document.querySelectorAll('[data-lightbox-src]'));
+  let currentIndex = 0;
+
+  if (triggers.length === 0) return;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    const trigger = triggers[currentIndex];
+    const src = trigger.getAttribute('data-lightbox-src');
+    const title = trigger.getAttribute('data-lightbox-title') || '';
+    const category = trigger.getAttribute('data-lightbox-category') || '';
+
+    modalImg.src = src;
+    modalTitle.textContent = title;
+    modalSub.textContent = category;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  triggers.forEach((trigger, idx) => {
+    trigger.addEventListener('click', () => openLightbox(idx));
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(idx);
+      }
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + triggers.length) % triggers.length;
+      openLightbox(currentIndex);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % triggers.length;
+      openLightbox(currentIndex);
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft' && prevBtn) prevBtn.click();
+    if (e.key === 'ArrowRight' && nextBtn) nextBtn.click();
+  });
+}
+
+// 3. MULTI-STEP PRIVATE EVENT INTAKE FORM VALIDATOR
+function initMultiStepForm() {
+  const form = document.getElementById('private-event-form');
+  if (!form) return;
+
+  const steps = Array.from(form.querySelectorAll('.form-step'));
+  const dots = Array.from(form.querySelectorAll('.step-dot'));
+  let currentStep = 0;
+
+  function showStep(stepIndex) {
+    steps.forEach((step, idx) => {
+      step.classList.toggle('is-active', idx === stepIndex);
+    });
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('is-active', idx === stepIndex);
+    });
+    currentStep = stepIndex;
+  }
+
+  form.querySelectorAll('[data-next-step]').forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const cat = btn.dataset.category;
-
-      items.forEach(item => {
-        if (cat === 'all' || item.dataset.category === cat) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
+      const currentStepEl = steps[currentStep];
+      const inputs = Array.from(currentStepEl.querySelectorAll('input, select, textarea'));
+      
+      // Validate current step required inputs
+      let isValid = true;
+      inputs.forEach(input => {
+        if (!input.checkValidity()) {
+          input.reportValidity();
+          isValid = false;
         }
       });
+
+      if (isValid && currentStep < steps.length - 1) {
+        showStep(currentStep + 1);
+      }
+    });
+  });
+
+  form.querySelectorAll('[data-prev-step]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (currentStep > 0) {
+        showStep(currentStep - 1);
+      }
     });
   });
 }
 
-// Multi-Step Form Logic for Private Events Intake
-function initPrivateEventForm() {
-  const form = document.getElementById('private-event-form');
-  if (!form) return;
+// 4. NETLIFY FORM SUCCESS NOTICE CHECK
+function initFormSuccessCheck() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('submitted') === 'true') {
+    const eventForm = document.getElementById('private-event-form');
+    const contactForm = document.querySelector('form[name="general-contact"]');
+    const targetForm = eventForm || contactForm;
 
-  let currentStep = 1;
-  const totalSteps = 3;
-  const nextBtn = document.getElementById('next-step-btn');
-  const prevBtn = document.getElementById('prev-step-btn');
-  const submitBtn = document.getElementById('submit-inquiry-btn');
-  const steps = document.querySelectorAll('.form-step');
-  const nodes = document.querySelectorAll('.step-node');
-
-  function updateSteps() {
-    steps.forEach((step, idx) => {
-      step.classList.toggle('active', idx + 1 === currentStep);
-    });
-
-    nodes.forEach((node, idx) => {
-      node.classList.toggle('active', idx + 1 === currentStep);
-      node.classList.toggle('completed', idx + 1 < currentStep);
-    });
-
-    if (prevBtn) prevBtn.style.display = currentStep === 1 ? 'none' : 'inline-flex';
-    if (nextBtn) nextBtn.style.display = currentStep === totalSteps ? 'none' : 'inline-flex';
-    if (submitBtn) submitBtn.style.display = currentStep === totalSteps ? 'inline-flex' : 'none';
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (currentStep < totalSteps) {
-        currentStep++;
-        updateSteps();
-      }
-    });
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (currentStep > 1) {
-        currentStep--;
-        updateSteps();
-      }
-    });
-  }
-
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-
-      // Save inquiry to local safe storage for demonstration / backend link
-      const inquiries = JSON.parse(localStorage.getItem('dsc_inquiries') || '[]');
-      inquiries.push({ ...data, timestamp: new Date().toISOString() });
-      localStorage.setItem('dsc_inquiries', JSON.stringify(inquiries));
-
-      const statusBox = document.getElementById('form-status-message');
-      if (statusBox) {
-        statusBox.style.display = 'block';
-        statusBox.innerHTML = `
-          <div class="disclaimer-box" style="background: rgba(223, 178, 96, 0.15); border-color: var(--accent-gold);">
-            <h4 style="font-family:var(--font-serif); color:var(--accent-gold); margin-bottom:0.5rem;">Inquiry Received</h4>
-            <p>Thank you for submitting your event request. Please note: <strong>This request does NOT constitute a confirmed booking</strong>. Our Culinary Director will review your specifications and contact you directly within 24-48 hours.</p>
-          </div>
-        `;
-      }
-      form.reset();
-    });
+    if (targetForm) {
+      const banner = document.createElement('div');
+      banner.className = 'success-banner';
+      banner.innerHTML = `
+        <svg style="width:24px; height:24px; fill:currentColor;" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+        <div>
+          <strong>Inquiry Submitted Successfully</strong>
+          <p style="font-size:0.85rem; margin-top:0.2rem;">Thank you for contacting Dark Star Culinary. We will review your event details and reach out regarding availability and next steps.</p>
+        </div>
+      `;
+      targetForm.parentNode.insertBefore(banner, targetForm);
+      targetForm.reset();
+    }
   }
 }

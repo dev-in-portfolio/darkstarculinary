@@ -3,180 +3,178 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Private Events Inquiry | DARK STAR CULINARY</title>
-  <meta name="description" content="Submit a private event inquiry for Dark Star Culinary. Multi-step intake for bespoke tasting menus, estate dining, and exclusive gatherings.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>★</text></svg>">
+  <title>Private Event & Dining Inquiry | Dark Star Culinary</title>
+  <meta name="description" content="Inquire regarding private dining, custom event menus, and chef-led catering with Executive Chef Devin O'Rourke in Charlotte, NC.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23080706' stroke='%23dfb260' stroke-width='6'/><circle cx='50' cy='50' r='18' fill='%23dfb260'/></svg>">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-  <canvas id="ambient-canvas"></canvas>
 
-  <header class="dsc-header">
-    <a href="/" class="brand-mark">
-      <span class="brand-star">★</span>
+  <!-- HEADER NAVIGATION -->
+  <header class="culinary-header">
+    <a href="/" class="brand-mark" aria-label="Dark Star Culinary Home">
+      <svg class="brand-svg" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#dfb260" stroke-width="6"/>
+        <circle cx="50" cy="50" r="20" fill="#dfb260"/>
+      </svg>
       <span class="brand-title">DARK STAR CULINARY</span>
     </a>
-    <nav class="dsc-nav">
+
+    <nav class="culinary-nav" aria-label="Main Navigation">
       <a href="/" class="nav-link">Home</a>
       <a href="/about.html" class="nav-link">About</a>
-      <a href="/gallery.html" class="nav-link">Portfolio</a>
+      <a href="/gallery.html" class="nav-link">Gallery</a>
       <a href="/private-events.html" class="nav-link active">Private Events</a>
       <a href="/contact.html" class="nav-link">Contact</a>
     </nav>
-    <a href="/private-events.html" class="cta-button">Inquire Now</a>
+
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <a href="/private-events.html" class="cta-button">Inquire ↗</a>
+      <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
+    </div>
   </header>
 
   <main style="padding-top: 8rem;">
     <section class="section-wrapper">
       <div class="section-header">
-        <span class="section-tag">BESPOKE EVENT INTAKE</span>
+        <span class="hero-tag">EVENT INTAKE</span>
         <h1 class="section-title">Private Event Inquiry</h1>
-        <p style="color: var(--text-muted); max-width: 650px; margin: 1rem auto 0; font-size: 1rem;">
-          Please complete our detailed inquiry intake below. Our team carefully reviews every request to curate a personalized dining proposition.
+        <p style="color:var(--text-muted); max-width:680px; margin:1rem auto 0; font-size:1.05rem; line-height:1.7;">
+          Provide details regarding your upcoming event. Chef Devin O'Rourke will review availability, menu requirements, and logistics to discuss next steps.
         </p>
       </div>
 
-      <div class="disclaimer-box">
-        <strong>IMPORTANT NOTICE REGARDING BOOKINGS:</strong> Submitting this form represents an initial service inquiry and request for proposal. <strong>It does NOT guarantee date availability or constitute a confirmed event booking.</strong> Official event confirmation requires contract execution and deposit receipt.
-      </div>
+      <div class="step-form-wrapper">
+        <!-- NETLIFY FORM (ZERO LOCALSTORAGE) -->
+        <form id="private-event-form" name="private-event-inquiry" method="POST" data-netlify="true" action="/private-events.html?submitted=true">
+          <input type="hidden" name="form-name" value="private-event-inquiry" />
+          <input type="hidden" name="bot-field" />
 
-      <div id="form-status-message" style="display: none;"></div>
-
-      <div class="intake-form-container">
-        <div class="step-indicator">
-          <div class="step-node active">1</div>
-          <div class="step-node">2</div>
-          <div class="step-node">3</div>
-        </div>
-
-        <form id="private-event-form">
-          <!-- STEP 1: CONTACT & LOGISTICS -->
-          <div class="form-step active">
-            <h3 style="font-family:var(--font-serif); color:var(--accent-gold); margin-bottom:1.5rem; font-size:1.3rem;">Step 1: Contact & Event Basics</h3>
-
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label for="full_name">Full Name *</label>
-                <input type="text" id="full_name" name="full_name" class="form-input" required placeholder="e.g. Eleanor Vance">
-              </div>
-              <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" name="email" class="form-input" required placeholder="eleanor@example.com">
-              </div>
+          <!-- STEP INDICATOR -->
+          <div class="step-indicator-bar">
+            <div class="step-dot is-active">
+              <span class="step-num-badge">1</span>
+              <span>Host Details</span>
             </div>
-
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label for="phone">Phone Number *</label>
-                <input type="tel" id="phone" name="phone" class="form-input" required placeholder="+1 (555) 019-2834">
-              </div>
-              <div class="form-group">
-                <label for="event_type">Event Type *</label>
-                <select id="event_type" name="event_type" class="form-select" required>
-                  <option value="private_tasting">Private Tasting Menu (Intimate 2-12 guests)</option>
-                  <option value="estate_dinner">Private Estate Dinner Party (12-30 guests)</option>
-                  <option value="celebration_gala">Milestone Celebration / Gala (30-100+ guests)</option>
-                  <option value="cocktail_reception">Bespoke Cocktail & Canapé Reception</option>
-                  <option value="culinary_consulting">Culinary Direction & Menu Consulting</option>
-                </select>
-              </div>
+            <div class="step-dot">
+              <span class="step-num-badge">2</span>
+              <span>Event Overview</span>
             </div>
-
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label for="desired_date">Desired Event Date *</label>
-                <input type="date" id="desired_date" name="desired_date" class="form-input" required>
-              </div>
-              <div class="form-group">
-                <label for="guest_count">Estimated Guest Count *</label>
-                <input type="number" id="guest_count" name="guest_count" class="form-input" min="1" max="500" required placeholder="e.g. 16">
-              </div>
+            <div class="step-dot">
+              <span class="step-num-badge">3</span>
+              <span>Culinary Vision</span>
             </div>
           </div>
 
-          <!-- STEP 2: VENUE & SERVICE SPECIFICATIONS -->
+          <!-- STEP 1: CONTACT DETAILS -->
+          <div class="form-step is-active">
+            <h3 style="font-family:var(--font-editorial); color:#fff; font-size:1.3rem; margin-bottom:1.5rem;">Host Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="host-name" class="form-label">Full Name *</label>
+                <input type="text" id="host-name" name="host_name" class="form-input" placeholder="Your full name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">Email Address *</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="name@domain.com" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="phone" class="form-label">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 000-0000" required>
+              </div>
+            </div>
+
+            <div class="form-nav-btns" style="justify-content:flex-end;">
+              <button type="button" class="cta-button" data-next-step>Next: Event Overview ↗</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: EVENT DETAILS -->
           <div class="form-step">
-            <h3 style="font-family:var(--font-serif); color:var(--accent-gold); margin-bottom:1.5rem; font-size:1.3rem;">Step 2: Venue & Service Style</h3>
-
-            <div class="form-group">
-              <label for="venue_location">Venue Location / City / Address *</label>
-              <input type="text" id="venue_location" name="venue_location" class="form-input" required placeholder="e.g. Private Estate, Aspen CO or Residence, Washington DC">
-            </div>
-
-            <div class="form-grid-2">
+            <h3 style="font-family:var(--font-editorial); color:#fff; font-size:1.3rem; margin-bottom:1.5rem;">Event Overview</h3>
+            <div class="form-grid">
               <div class="form-group">
-                <label for="setting_type">Setting & Environment</label>
-                <select id="setting_type" name="setting_type" class="form-select">
-                  <option value="indoor">Indoor Dining Room / Residence</option>
-                  <option value="outdoor">Outdoor / Covered Terrace</option>
-                  <option value="hybrid">Combined Indoor & Outdoor Flow</option>
+                <label for="event-type" class="form-label">Event Category *</label>
+                <select id="event-type" name="event_type" class="form-select" required>
+                  <option value="Private Dining">Private Dining / Multi-Course Dinner</option>
+                  <option value="Celebration">Celebration / Anniversary / Birthday</option>
+                  <option value="Cocktail Reception">Cocktail & Hors d'Oeuvres Reception</option>
+                  <option value="Corporate Event">Corporate / Hosted Hospitality</option>
+                  <option value="Other">Other Custom Event</option>
                 </select>
               </div>
+
               <div class="form-group">
-                <label for="service_style">Preferred Service Style</label>
-                <select id="service_style" name="service_style" class="form-select">
-                  <option value="multi_course">Multi-Course Plated Tasting (6-10 Courses)</option>
-                  <option value="chefs_table">Interactive Chef's Table Experience</option>
-                  <option value="family_elevated">Elevated Shared Platter Dining</option>
-                  <option value="passed_canapes">Passed Canapés & Sommelier Stations</option>
-                </select>
+                <label for="event-date" class="form-label">Desired Event Date *</label>
+                <input type="date" id="event-date" name="event_date" class="form-input" required>
+              </div>
+
+              <div class="form-group">
+                <label for="guest-count" class="form-label">Estimated Guest Count *</label>
+                <input type="number" id="guest-count" name="guest_count" class="form-input" min="1" max="250" value="10" required>
+              </div>
+
+              <div class="form-group">
+                <label for="location" class="form-label">City / Venue Location *</label>
+                <input type="text" id="location" name="location" class="form-input" placeholder="e.g. Charlotte, NC or venue name" required>
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="budget_range">Target Investment Range *</label>
-              <select id="budget_range" name="budget_range" class="form-select" required>
-                <option value="5k_10k">$5,000 – $10,000</option>
-                <option value="10k_25k">$10,000 – $25,000</option>
-                <option value="25k_50k">$25,000 – $50,000</option>
-                <option value="50k_plus">$50,000+</option>
-              </select>
+            <div class="form-nav-btns">
+              <button type="button" class="cta-button" style="background:transparent; border-color:var(--border-subtle); color:#fff;" data-prev-step>&lsaquo; Back</button>
+              <button type="button" class="cta-button" data-next-step>Next: Culinary Vision ↗</button>
             </div>
           </div>
 
-          <!-- STEP 3: CULINARY DIRECTION & NOTES -->
+          <!-- STEP 3: CULINARY VISION & SUBMIT -->
           <div class="form-step">
-            <h3 style="font-family:var(--font-serif); color:var(--accent-gold); margin-bottom:1.5rem; font-size:1.3rem;">Step 3: Culinary Vision & Preferences</h3>
+            <h3 style="font-family:var(--font-editorial); color:#fff; font-size:1.3rem; margin-bottom:1.5rem;">Culinary Vision & Dietary Requirements</h3>
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label for="dietary-notes" class="form-label">Dietary Restrictions & Allergies</label>
+                <textarea id="dietary-notes" name="dietary_notes" class="form-textarea" placeholder="List any known guest allergies, vegetarian/gluten-free requirements, or dietary preferences..."></textarea>
+              </div>
 
-            <div class="form-group">
-              <label for="food_direction">Preferred Culinary Direction & Ingredients</label>
-              <textarea id="food_direction" name="food_direction" rows="3" class="form-textarea" placeholder="Describe any preferred proteins, flavor profiles, or seasonal themes (e.g. Coastal Seafood, Japanese-Nordic fusion, Truffle focus)"></textarea>
+              <div class="form-group full-width">
+                <label for="vision-notes" class="form-label">Menu Vision & Additional Notes</label>
+                <textarea id="vision-notes" name="vision_notes" class="form-textarea" placeholder="Describe the atmosphere, favorite flavor profiles, or specific courses you envision for your event..."></textarea>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label for="dietary_notes">Dietary Restrictions & Allergies</label>
-              <textarea id="dietary_notes" name="dietary_notes" rows="2" class="form-textarea" placeholder="List any known allergies (e.g. Shellfish, Gluten-Free, Dairy-Free) among guests"></textarea>
+            <div style="margin-top:1rem; padding:1.25rem; background:rgba(255,255,255,0.03); border:1px solid var(--border-subtle); border-radius:4px; font-size:0.85rem; color:var(--text-dim); line-height:1.6; margin-bottom:2rem;">
+              <strong>Booking Disclaimer:</strong> Submitting this inquiry is an initial request to evaluate event availability and menu design. It does not constitute a confirmed reservation or binding contract. We will review your inquiry details and contact you regarding availability and next steps.
             </div>
 
-            <div class="form-group">
-              <label for="event_vision">Event Vision & Special Requirements</label>
-              <textarea id="event_vision" name="event_vision" rows="3" class="form-textarea" placeholder="Share any decor, sommelier wine pairing requests, atmospheric lighting, or custom touches you envision"></textarea>
+            <div class="form-nav-btns">
+              <button type="button" class="cta-button" style="background:transparent; border-color:var(--border-subtle); color:#fff;" data-prev-step>&lsaquo; Back</button>
+              <button type="submit" class="cta-button" style="padding:0.9rem 2.2rem;">Submit Event Inquiry ↗</button>
             </div>
-          </div>
-
-          <!-- FORM ACTIONS -->
-          <div style="display:flex; justify-content:space-between; margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--border-muted);">
-            <button type="button" id="prev-step-btn" class="secondary-button" style="display:none;">Previous</button>
-            <button type="button" id="next-step-btn" class="cta-button" style="margin-left:auto;">Continue to Step 2</button>
-            <button type="submit" id="submit-inquiry-btn" class="cta-button" style="display:none; margin-left:auto;">Submit Formal Inquiry</button>
           </div>
         </form>
       </div>
     </section>
   </main>
 
-  <footer class="dsc-footer">
+  <!-- FOOTER -->
+  <footer class="culinary-footer">
     <div class="footer-content">
-      <a href="https://dscuniverse.netlify.app" class="universe-gateway">
-        <span class="universe-mark">🌌</span>
-        <div class="universe-text">
-          <h4>DARK STAR UNIVERSE</h4>
-          <p>Return to the Central Ecosystem Hub</p>
+      <a href="https://dscuniverse.netlify.app" class="universe-gateway" aria-label="Return to Dark Star Universe Central Hub">
+        <svg style="width:24px; height:24px; fill:var(--accent-amber);" viewBox="0 0 100 100">
+          <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36"/>
+        </svg>
+        <div style="text-align:left;">
+          <h4 style="font-family:var(--font-editorial); color:#fff; font-size:0.95rem;">DARK STAR UNIVERSE</h4>
+          <p style="font-size:0.8rem; color:var(--text-muted);">Central Ecosystem Hub</p>
         </div>
       </a>
-      <div class="footer-credits">
-        <p>© 2026 DARK STAR CULINARY. Member of Dark Star Ecosystem.</p>
-      </div>
+
+      <p style="font-size:0.85rem; color:var(--text-dim);">
+        © 2026 Dark Star Culinary. Executive Chef Devin O'Rourke. Charlotte, NC. Member of Dark Star Ecosystem.
+      </p>
     </div>
   </footer>
 

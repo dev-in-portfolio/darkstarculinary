@@ -3,119 +3,169 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DARK STAR CULINARY | Elite Bespoke Gastronomy & Private Dining</title>
-  <meta name="description" content="Dark Star Culinary delivers luxury dining experiences, bespoke tasting menus, and private event culinary direction.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>★</text></svg>">
+  <title>Dark Star Culinary | Personalized Culinary Experiences & Private Dining</title>
+  <meta name="description" content="Chef-led private dining, seasonal menu development, and bespoke culinary event execution by Executive Chef Devin O'Rourke based in Charlotte, NC.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23080706' stroke='%23dfb260' stroke-width='6'/><circle cx='50' cy='50' r='18' fill='%23dfb260'/></svg>">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-  <canvas id="ambient-canvas"></canvas>
 
-  <header class="dsc-header">
-    <a href="/" class="brand-mark">
-      <span class="brand-star">★</span>
+  <!-- HEADER NAVIGATION -->
+  <header class="culinary-header">
+    <a href="/" class="brand-mark" aria-label="Dark Star Culinary Home">
+      <svg class="brand-svg" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#dfb260" stroke-width="6"/>
+        <circle cx="50" cy="50" r="20" fill="#dfb260"/>
+      </svg>
       <span class="brand-title">DARK STAR CULINARY</span>
     </a>
-    <nav class="dsc-nav">
+
+    <nav class="culinary-nav" aria-label="Main Navigation">
       <a href="/" class="nav-link active">Home</a>
       <a href="/about.html" class="nav-link">About</a>
-      <a href="/gallery.html" class="nav-link">Portfolio</a>
+      <a href="/gallery.html" class="nav-link">Gallery</a>
       <a href="/private-events.html" class="nav-link">Private Events</a>
       <a href="/contact.html" class="nav-link">Contact</a>
     </nav>
-    <a href="/private-events.html" class="cta-button">Inquire Now</a>
+
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <a href="/private-events.html" class="cta-button">Inquire ↗</a>
+      <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
+    </div>
   </header>
 
   <main>
-    <!-- HERO SECTION -->
+    <!-- HERO EXPERIENCE WITH REAL CULINARY PHOTOGRAPHY -->
     <section class="hero-section">
-      <div class="hero-overlay-gradient"></div>
-      <div class="hero-content">
-        <span class="hero-subtitle">DARK STAR ECOSYSTEM CULINARY DIVISION</span>
-        <h1 class="hero-title">Bespoke Dining.<br>Uncompromising Craft.</h1>
-        <p class="hero-description">
-          Dark Star Culinary orchestrates immersive private dining, high-concept menu design, and full-spectrum culinary direction for exclusive gatherings and private estates.
+      <div class="hero-text-side">
+        <span class="hero-tag">CHEF-LED BESPOKE HOSPITALITY</span>
+        <h1 class="hero-title">DARK STAR CULINARY</h1>
+        <p class="hero-lead">
+          Personalized culinary experiences, seasonal menu development, and private dining operations led by Executive Chef Devin O'Rourke.
         </p>
-        <div class="hero-actions">
-          <a href="/private-events.html" class="cta-button">Plan A Private Experience</a>
-          <a href="/gallery.html" class="secondary-button">Explore Portfolio</a>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+          <a href="/private-events.html" class="cta-button" style="padding:0.85rem 1.8rem;">Private Event Inquiry ↗</a>
+          <a href="/gallery.html" class="cta-button" style="background:transparent; border-color:var(--border-subtle); color:#fff;">View Culinary Gallery</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-container" data-lightbox-src="/images/featured-steak.jpg" data-lightbox-title="Chef Entrée Plating" data-lightbox-category="Culinary Work" tabindex="0" role="button" aria-label="Expand image: Chef Entrée Plating">
+        <img src="/images/featured-steak.jpg" alt="Chef Entrée Plating" class="hero-photo-img" loading="eager">
+        <div class="hero-photo-caption">
+          <div>
+            <span style="font-family:var(--font-editorial); color:#fff; font-size:1.1rem; font-weight:600;">Chef's Entrée Plating</span>
+            <span style="display:block; font-size:0.8rem; color:var(--accent-amber);">Click image to expand full view</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- POSITIONING / CORE PILLARS -->
-    <section class="section-wrapper">
+    <!-- SELECTED WORK GRID -->
+    <section class="section-wrapper" style="border-top:1px solid var(--border-subtle);">
       <div class="section-header">
-        <span class="section-tag">EXCELLENCE IN HOSPITALITY</span>
-        <h2 class="section-title">The Culinary Pillars</h2>
-      </div>
-
-      <div class="grid-3">
-        <article class="culinary-card">
-          <div class="card-icon">✦</div>
-          <h3 class="card-title">Bespoke Tasting Menus</h3>
-          <p class="card-text">
-            Tailored multi-course journeys crafted from seasonal hyper-local ingredients, elevated techniques, and precise flavor pairings designed exclusively for your palate.
-          </p>
-        </article>
-
-        <article class="culinary-card">
-          <div class="card-icon">◈</div>
-          <h3 class="card-title">Private Estate Dining</h3>
-          <p class="card-text">
-            Complete high-touch kitchen operations brought into private residences and select venues with white-glove service standards and discreet execution.
-          </p>
-        </article>
-
-        <article class="culinary-card">
-          <div class="card-icon">★</div>
-          <h3 class="card-title">Event Culinary Direction</h3>
-          <p class="card-text">
-            Architectural food presentation, wine & spirit pairing strategies, and immersive dining production for celebrations that leave a lasting mark.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <!-- PHILOSOPHY PREVIEW -->
-    <section class="section-wrapper" style="background: rgba(17,19,26,0.5); border-radius:6px; border:1px solid var(--border-muted);">
-      <div class="section-header" style="margin-bottom: 2rem;">
-        <span class="section-tag">CHEF-DRIVEN CREATIVITY</span>
-        <h2 class="section-title">Elevating Gastronomy</h2>
-      </div>
-      <p style="text-align: center; max-width: 800px; margin: 0 auto 2.5rem; color: var(--text-muted); font-size: 1.05rem; line-height: 1.8;">
-        "We treat hospitality as fine art — where light, temperature, texture, and aroma converge to create singular culinary moments."
-      </p>
-      <div style="text-align: center;">
-        <a href="/about.html" class="secondary-button">Read Our Philosophy</a>
-      </div>
-    </section>
-
-    <!-- PRIVATE EVENTS CALLOUT -->
-    <section class="section-wrapper">
-      <div style="background: linear-gradient(135deg, rgba(223,178,96,0.1) 0%, rgba(8,9,13,0.9) 100%); border: 1px solid var(--border-gold); padding: 4rem 2rem; text-align: center; border-radius: 4px;">
-        <span class="section-tag">PRIVATE INQUIRIES</span>
-        <h2 class="section-title" style="margin-bottom: 1.5rem;">Reserve Your Culinary Experience</h2>
-        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; font-size: 1rem;">
-          Our private event schedule is curated selectively to ensure meticulous detail for every occasion.
+        <span class="hero-tag">SELECTED WORK</span>
+        <h2 class="section-title">Culinary Showcase</h2>
+        <p style="color:var(--text-muted); max-width:640px; margin:0.8rem auto 0; font-size:1.02rem;">
+          Authentic photography from recent culinary preparations, hearth cooking, and beverage service.
         </p>
-        <a href="/private-events.html" class="cta-button">Initiate Private Event Request</a>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- ITEM 1 -->
+        <div class="gallery-card" data-lightbox-src="/images/featured-steak.jpg" data-lightbox-title="Artisanal Entrée Presentation" data-lightbox-category="Culinary Plating" tabindex="0" role="button" aria-label="Expand image: Artisanal Entrée Presentation">
+          <div class="gallery-img-wrapper">
+            <img src="/images/featured-steak.jpg" alt="Artisanal Entrée Presentation" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <h3 class="gallery-card-title">Entrée Presentation</h3>
+            <p class="gallery-card-desc">Sear execution with seasonal reduction and crisp garnishes.</p>
+          </div>
+        </div>
+
+        <!-- ITEM 2 -->
+        <div class="gallery-card" data-lightbox-src="/images/wood-fired-hearth.jpg" data-lightbox-title="Live Fire & Hearth Kitchen" data-lightbox-category="Hearth Cooking" tabindex="0" role="button" aria-label="Expand image: Live Fire & Hearth Kitchen">
+          <div class="gallery-img-wrapper">
+            <img src="/images/wood-fired-hearth.jpg" alt="Live Fire & Hearth Kitchen" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <h3 class="gallery-card-title">Live Fire & Hearth</h3>
+            <p class="gallery-card-desc">Wood-fired hearth preparation and intense high-heat searing.</p>
+          </div>
+        </div>
+
+        <!-- ITEM 3 -->
+        <div class="gallery-card" data-lightbox-src="/images/featured-flatbread.jpg" data-lightbox-title="Hearth Flatbread Preparation" data-lightbox-category="Artisanal Baking" tabindex="0" role="button" aria-label="Expand image: Hearth Flatbread Preparation">
+          <div class="gallery-img-wrapper">
+            <img src="/images/featured-flatbread.jpg" alt="Hearth Flatbread Preparation" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <h3 class="gallery-card-title">Hearth Flatbread</h3>
+            <p class="gallery-card-desc">Freshly fired crust with herbs and artisanal oils.</p>
+          </div>
+        </div>
+
+        <!-- ITEM 4 -->
+        <div class="gallery-card" data-lightbox-src="/images/cosmic-cocktail.jpg" data-lightbox-title="Craft Beverage Pairing" data-lightbox-category="Beverage Service" tabindex="0" role="button" aria-label="Expand image: Craft Beverage Pairing">
+          <div class="gallery-img-wrapper">
+            <img src="/images/cosmic-cocktail.jpg" alt="Craft Beverage Pairing" loading="lazy">
+          </div>
+          <div class="gallery-card-body">
+            <h3 class="gallery-card-title">Beverage Program</h3>
+            <p class="gallery-card-desc">Thoughtfully paired cocktails and wine curation for dining events.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:3.5rem;">
+        <a href="/gallery.html" class="cta-button" style="background:transparent; border-color:var(--accent-amber); color:var(--accent-amber);">Explore Full Portfolio ↗</a>
+      </div>
+    </section>
+
+    <!-- CHEF PHILOSOPHY & PRIVATE EXPERIENCES -->
+    <section class="section-wrapper" style="border-top:1px solid var(--border-subtle);">
+      <div style="max-width:960px; margin:0 auto; background:var(--bg-card); border:1px solid var(--border-gold); border-radius:8px; padding:3.5rem 3rem; text-align:center;">
+        <span class="hero-tag">EXECUTIVE CHEF & OWNER</span>
+        <h2 style="font-family:var(--font-editorial); font-size:2.2rem; color:#fff; margin:0.5rem 0 1.25rem;">Chef Devin O'Rourke</h2>
+        <p style="color:var(--text-muted); font-size:1.05rem; line-height:1.8; margin-bottom:2rem;">
+          Dark Star Culinary brings professional chef leadership, food-safety rigor, and seasonal menu development directly to your event. Operating from Charlotte, NC with destination event availability by inquiry.
+        </p>
+        <a href="/private-events.html" class="cta-button" style="padding:0.9rem 2.2rem;">Plan Your Private Event ↗</a>
       </div>
     </section>
   </main>
 
-  <footer class="dsc-footer">
+  <!-- LIGHTBOX MODAL DIALOG -->
+  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Culinary Photography Lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" aria-label="Close image lightbox">&times;</button>
+      <button class="lightbox-nav prev" aria-label="Previous photo">&lsaquo;</button>
+      <button class="lightbox-nav next" aria-label="Next photo">&rsaquo;</button>
+      <img src="" alt="" class="lightbox-img">
+      <div class="lightbox-caption">
+        <div class="lightbox-title"></div>
+        <div class="lightbox-sub"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="culinary-footer">
     <div class="footer-content">
-      <a href="https://dscuniverse.netlify.app" class="universe-gateway" id="universe-backlink">
-        <span class="universe-mark">🌌</span>
-        <div class="universe-text">
-          <h4>DARK STAR UNIVERSE</h4>
-          <p>Return to the Central Ecosystem Hub</p>
+      <a href="https://dscuniverse.netlify.app" class="universe-gateway" aria-label="Return to Dark Star Universe Central Hub">
+        <svg style="width:24px; height:24px; fill:var(--accent-amber);" viewBox="0 0 100 100">
+          <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36"/>
+        </svg>
+        <div style="text-align:left;">
+          <h4 style="font-family:var(--font-editorial); color:#fff; font-size:0.95rem;">DARK STAR UNIVERSE</h4>
+          <p style="font-size:0.8rem; color:var(--text-muted);">Central Ecosystem Hub</p>
         </div>
       </a>
-      <div class="footer-credits">
-        <p>© 2026 DARK STAR CULINARY. Member of Dark Star Ecosystem.</p>
-      </div>
+
+      <p style="font-size:0.85rem; color:var(--text-dim);">
+        © 2026 Dark Star Culinary. Executive Chef Devin O'Rourke. Charlotte, NC. Member of Dark Star Ecosystem.
+      </p>
     </div>
   </footer>
 
