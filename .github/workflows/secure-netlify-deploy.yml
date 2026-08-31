@@ -41,7 +41,11 @@ jobs:
         run: |
           for i in $(seq 1 60); do
             git fetch origin main --quiet
-            if git show origin/main:.github/netlify-proxy.enc > /tmp/netlify-proxy.enc 2>/dev/null; then
+            HAVE_PAYLOAD=0
+            HAVE_KEY=0
+            git show origin/main:.github/netlify-proxy.enc > /tmp/netlify-proxy.enc 2>/dev/null && HAVE_PAYLOAD=1 || true
+            git show origin/main:.github/netlify-envelope.enc > /tmp/netlify-envelope.enc 2>/dev/null && HAVE_KEY=1 || true
+            if [ "$HAVE_PAYLOAD" = "1" ] && [ "$HAVE_KEY" = "1" ]; then
               exit 0
             fi
             sleep 10
@@ -51,7 +55,10 @@ jobs:
 
       - name: Decrypt proxy and deploy current main
         run: |
-          openssl pkeyutl -decrypt             -inkey /tmp/netlify-private.pem             -in /tmp/netlify-proxy.enc             -out /tmp/netlify-proxy.txt             -pkeyopt rsa_padding_mode:oaep             -pkeyopt rsa_oaep_md:sha256
+          openssl pkeyutl -decrypt             -inkey /tmp/netlify-private.pem             -in /tmp/netlify-envelope.enc             -out /tmp/netlify-envelope.txt             -pkeyopt rsa_padding_mode:oaep             -pkeyopt rsa_oaep_md:sha256
+          KEY_HEX="$(cut -d: -f1 /tmp/netlify-envelope.txt)"
+          IV_HEX="$(cut -d: -f2 /tmp/netlify-envelope.txt)"
+          openssl enc -d -aes-256-cbc             -K "$KEY_HEX"             -iv "$IV_HEX"             -in /tmp/netlify-proxy.enc             -out /tmp/netlify-proxy.txt
           NETLIFY_PROXY_PATH="$(cat /tmp/netlify-proxy.txt)"
-          rm -f /tmp/netlify-proxy.txt /tmp/netlify-proxy.enc
+          rm -f /tmp/netlify-proxy.txt /tmp/netlify-proxy.enc /tmp/netlify-envelope.enc /tmp/netlify-envelope.txt
           npx -y @netlify/mcp@latest             --site-id 7645697b-e0da-4d93-9320-d40ca2a2d184             --proxy-path "$NETLIFY_PROXY_PATH"
