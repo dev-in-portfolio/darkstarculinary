@@ -1,178 +1,151 @@
-// ==========================================================================
-// DARK STAR CULINARY — CLIENT ENGINE
-// Lightbox Gallery, Mobile Nav, Multi-Step Form Validation & Netlify Submission
-// Zero localStorage persistence.
-// ==========================================================================
+import { galleryItems } from './gallery-data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
+  renderGallery();
   initLightbox();
   initMultiStepForm();
   initFormSuccessCheck();
+  initDateMinimum();
 });
 
-// 1. MOBILE NAVIGATION TOGGLE
 function initMobileNav() {
-  const toggleBtn = document.querySelector('.mobile-menu-toggle');
-  const navMenu = document.querySelector('.culinary-nav');
-
-  if (!toggleBtn || !navMenu) return;
-
-  toggleBtn.addEventListener('click', () => {
-    const isActive = navMenu.classList.toggle('is-active');
-    toggleBtn.setAttribute('aria-expanded', isActive);
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const nav = document.querySelector('.culinary-nav');
+  if (!toggle || !nav) return;
+  toggle.addEventListener('click', () => {
+    const active = nav.classList.toggle('is-active');
+    toggle.setAttribute('aria-expanded', String(active));
   });
-
-  document.addEventListener('click', (e) => {
-    if (!toggleBtn.contains(e.target) && !navMenu.contains(e.target)) {
-      navMenu.classList.remove('is-active');
-      toggleBtn.setAttribute('aria-expanded', 'false');
+  document.addEventListener('click', (event) => {
+    if (!toggle.contains(event.target) && !nav.contains(event.target)) {
+      nav.classList.remove('is-active');
+      toggle.setAttribute('aria-expanded', 'false');
     }
   });
 }
 
-// 2. LIGHTBOX GALLERY ENGINE
-function initLightbox() {
+function renderGallery() {
+  const grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+
+  grid.innerHTML = galleryItems.map((item, index) => `
+    <article class="gallery-card" data-category="${item.category}" data-orientation="${item.orientation || 'portrait'}"
+      data-lightbox-src="${item.src}" data-lightbox-title="${item.title}" data-lightbox-category="${item.label}"
+      tabindex="0" role="button" aria-label="Expand ${item.title}">
+      <div class="gallery-img-wrapper">
+        <img src="${item.src}" alt="${item.alt || item.title}" loading="${index < 8 ? 'eager' : 'lazy'}" decoding="async">
+      </div>
+      <div class="gallery-meta"><strong>${item.title}</strong><span>${item.label}</span></div>
+    </article>
+  `).join('');
+
+  const buttons = Array.from(document.querySelectorAll('[data-gallery-filter]'));
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.galleryFilter;
+      buttons.forEach(btn => btn.classList.toggle('is-active', btn === button));
+      grid.querySelectorAll('.gallery-card').forEach(card => {
+        card.classList.toggle('is-hidden', filter !== 'all' && card.dataset.category !== filter);
+      });
+      refreshLightbox();
+    });
+  });
+}
+
+let lightboxCleanup = null;
+function initLightbox() { refreshLightbox(); }
+function refreshLightbox() {
+  if (lightboxCleanup) lightboxCleanup();
   const modal = document.getElementById('lightbox-modal');
   if (!modal) return;
-
   const modalImg = modal.querySelector('.lightbox-img');
   const modalTitle = modal.querySelector('.lightbox-title');
   const modalSub = modal.querySelector('.lightbox-sub');
   const closeBtn = modal.querySelector('.lightbox-close');
   const prevBtn = modal.querySelector('.lightbox-nav.prev');
   const nextBtn = modal.querySelector('.lightbox-nav.next');
-
-  const triggers = Array.from(document.querySelectorAll('[data-lightbox-src]'));
+  const triggers = Array.from(document.querySelectorAll('[data-lightbox-src]')).filter(el => !el.classList.contains('is-hidden'));
   let currentIndex = 0;
+  if (!triggers.length) return;
 
-  if (triggers.length === 0) return;
-
-  function openLightbox(index) {
-    currentIndex = index;
+  const open = (index) => {
+    currentIndex = (index + triggers.length) % triggers.length;
     const trigger = triggers[currentIndex];
-    const src = trigger.getAttribute('data-lightbox-src');
-    const title = trigger.getAttribute('data-lightbox-title') || '';
-    const category = trigger.getAttribute('data-lightbox-category') || '';
-
-    modalImg.src = src;
-    modalTitle.textContent = title;
-    modalSub.textContent = category;
+    modalImg.src = trigger.dataset.lightboxSrc;
+    modalImg.alt = trigger.dataset.lightboxTitle || '';
+    modalTitle.textContent = trigger.dataset.lightboxTitle || '';
+    modalSub.textContent = trigger.dataset.lightboxCategory || '';
     modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  };
+  const close = () => {
     modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
+    modal.setAttribute('aria-hidden','true');
+    modalImg.src='';
+    document.body.style.overflow='';
+  };
+  const handlers = [];
   triggers.forEach((trigger, idx) => {
-    trigger.addEventListener('click', () => openLightbox(idx));
-    trigger.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openLightbox(idx);
-      }
-    });
+    const click = () => open(idx);
+    const key = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(idx); } };
+    trigger.addEventListener('click', click); trigger.addEventListener('keydown', key);
+    handlers.push(() => { trigger.removeEventListener('click', click); trigger.removeEventListener('keydown', key); });
   });
-
-  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + triggers.length) % triggers.length;
-      openLightbox(currentIndex);
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % triggers.length;
-      openLightbox(currentIndex);
-    });
-  }
-
-  document.addEventListener('keydown', (e) => {
+  const closeClick = close, prevClick = () => open(currentIndex-1), nextClick = () => open(currentIndex+1);
+  closeBtn?.addEventListener('click',closeClick); prevBtn?.addEventListener('click',prevClick); nextBtn?.addEventListener('click',nextClick);
+  const backdrop = (e) => { if (e.target === modal) close(); };
+  modal.addEventListener('click',backdrop);
+  const keydown = (e) => {
     if (!modal.classList.contains('is-open')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft' && prevBtn) prevBtn.click();
-    if (e.key === 'ArrowRight' && nextBtn) nextBtn.click();
-  });
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') prevClick();
+    if (e.key === 'ArrowRight') nextClick();
+  };
+  document.addEventListener('keydown',keydown);
+  lightboxCleanup = () => {
+    handlers.forEach(fn => fn()); closeBtn?.removeEventListener('click',closeClick); prevBtn?.removeEventListener('click',prevClick); nextBtn?.removeEventListener('click',nextClick); modal.removeEventListener('click',backdrop); document.removeEventListener('keydown',keydown);
+  };
 }
 
-// 3. MULTI-STEP PRIVATE EVENT INTAKE FORM VALIDATOR
 function initMultiStepForm() {
   const form = document.getElementById('private-event-form');
   if (!form) return;
-
   const steps = Array.from(form.querySelectorAll('.form-step'));
   const dots = Array.from(form.querySelectorAll('.step-dot'));
-  let currentStep = 0;
-
-  function showStep(stepIndex) {
-    steps.forEach((step, idx) => {
-      step.classList.toggle('is-active', idx === stepIndex);
-    });
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle('is-active', idx === stepIndex);
-    });
-    currentStep = stepIndex;
-  }
-
-  form.querySelectorAll('[data-next-step]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const currentStepEl = steps[currentStep];
-      const inputs = Array.from(currentStepEl.querySelectorAll('input, select, textarea'));
-      
-      // Validate current step required inputs
-      let isValid = true;
-      inputs.forEach(input => {
-        if (!input.checkValidity()) {
-          input.reportValidity();
-          isValid = false;
-        }
-      });
-
-      if (isValid && currentStep < steps.length - 1) {
-        showStep(currentStep + 1);
-      }
-    });
-  });
-
-  form.querySelectorAll('[data-prev-step]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (currentStep > 0) {
-        showStep(currentStep - 1);
-      }
-    });
-  });
+  let current = 0;
+  const show = (index) => {
+    steps.forEach((step,i)=>step.classList.toggle('is-active',i===index));
+    dots.forEach((dot,i)=>dot.classList.toggle('is-active',i===index));
+    current=index;
+  };
+  form.querySelectorAll('[data-next-step]').forEach(button => button.addEventListener('click', () => {
+    const inputs = Array.from(steps[current].querySelectorAll('input,select,textarea'));
+    const invalid = inputs.find(input => !input.checkValidity());
+    if (invalid) return invalid.reportValidity();
+    if (current < steps.length-1) show(current+1);
+  }));
+  form.querySelectorAll('[data-prev-step]').forEach(button => button.addEventListener('click', () => { if (current>0) show(current-1); }));
 }
 
-// 4. NETLIFY FORM SUCCESS NOTICE CHECK
 function initFormSuccessCheck() {
   const params = new URLSearchParams(window.location.search);
-  if (params.get('submitted') === 'true') {
-    const eventForm = document.getElementById('private-event-form');
-    const contactForm = document.querySelector('form[name="general-contact"]');
-    const targetForm = eventForm || contactForm;
+  if (params.get('submitted') !== 'true') return;
+  const form = document.getElementById('private-event-form') || document.querySelector('form[name="general-contact"]');
+  if (!form) return;
+  const banner = document.createElement('div');
+  banner.className='success-banner';
+  banner.innerHTML='<strong>Inquiry received.</strong><div style="margin-top:.25rem;color:#d7d0c8;font-size:.9rem;">Dark Star Culinary will review the details and reply with availability and next steps.</div>';
+  form.parentNode.insertBefore(banner, form);
+  form.reset();
+  history.replaceState({}, document.title, location.pathname);
+}
 
-    if (targetForm) {
-      const banner = document.createElement('div');
-      banner.className = 'success-banner';
-      banner.innerHTML = `
-        <svg style="width:24px; height:24px; fill:currentColor;" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-        </svg>
-        <div>
-          <strong>Inquiry Submitted Successfully</strong>
-          <p style="font-size:0.85rem; margin-top:0.2rem;">Thank you for contacting Dark Star Culinary. We will review your event details and reach out regarding availability and next steps.</p>
-        </div>
-      `;
-      targetForm.parentNode.insertBefore(banner, targetForm);
-      targetForm.reset();
-    }
-  }
+function initDateMinimum() {
+  const dateInput = document.getElementById('event-date');
+  if (!dateInput) return;
+  const now = new Date();
+  const local = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,10);
+  dateInput.min = local;
 }
