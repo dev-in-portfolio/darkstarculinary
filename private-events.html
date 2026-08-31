@@ -1,183 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Private Event & Dining Inquiry | Dark Star Culinary</title>
-  <meta name="description" content="Inquire regarding private dining, custom event menus, and chef-led catering with Executive Chef Devin O'Rourke in Charlotte, NC.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23080706' stroke='%23dfb260' stroke-width='6'/><circle cx='50' cy='50' r='18' fill='%23dfb260'/></svg>">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Private Events | Dark Star Culinary</title>
+  <meta name="description" content="Private dining and custom event inquiry for Dark Star Culinary in Charlotte, NC.">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-
-  <!-- HEADER NAVIGATION -->
-  <header class="culinary-header">
-    <a href="/" class="brand-mark" aria-label="Dark Star Culinary Home">
-      <svg class="brand-svg" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="45" fill="none" stroke="#dfb260" stroke-width="6"/>
-        <circle cx="50" cy="50" r="20" fill="#dfb260"/>
-      </svg>
-      <span class="brand-title">DARK STAR CULINARY</span>
-    </a>
-
-    <nav class="culinary-nav" aria-label="Main Navigation">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/about.html" class="nav-link">About</a>
-      <a href="/gallery.html" class="nav-link">Gallery</a>
-      <a href="/private-events.html" class="nav-link active">Private Events</a>
-      <a href="/contact.html" class="nav-link">Contact</a>
-    </nav>
-
-    <div style="display:flex; align-items:center; gap:1rem;">
-      <a href="/private-events.html" class="cta-button">Inquire ↗</a>
-      <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-      </button>
-    </div>
-  </header>
-
-  <main style="padding-top: 8rem;">
-    <section class="section-wrapper">
-      <div class="section-header">
-        <span class="hero-tag">EVENT INTAKE</span>
-        <h1 class="section-title">Private Event Inquiry</h1>
-        <p style="color:var(--text-muted); max-width:680px; margin:1rem auto 0; font-size:1.05rem; line-height:1.7;">
-          Provide details regarding your upcoming event. Chef Devin O'Rourke will review availability, menu requirements, and logistics to discuss next steps.
-        </p>
-      </div>
-
-      <div class="step-form-wrapper">
-        <!-- NETLIFY FORM (ZERO LOCALSTORAGE) -->
-        <form id="private-event-form" name="private-event-inquiry" method="POST" data-netlify="true" action="/private-events.html?submitted=true">
-          <input type="hidden" name="form-name" value="private-event-inquiry" />
-          <input type="hidden" name="bot-field" />
-
-          <!-- STEP INDICATOR -->
-          <div class="step-indicator-bar">
-            <div class="step-dot is-active">
-              <span class="step-num-badge">1</span>
-              <span>Host Details</span>
-            </div>
-            <div class="step-dot">
-              <span class="step-num-badge">2</span>
-              <span>Event Overview</span>
-            </div>
-            <div class="step-dot">
-              <span class="step-num-badge">3</span>
-              <span>Culinary Vision</span>
-            </div>
-          </div>
-
-          <!-- STEP 1: CONTACT DETAILS -->
-          <div class="form-step is-active">
-            <h3 style="font-family:var(--font-editorial); color:#fff; font-size:1.3rem; margin-bottom:1.5rem;">Host Information</h3>
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="host-name" class="form-label">Full Name *</label>
-                <input type="text" id="host-name" name="host_name" class="form-input" placeholder="Your full name" required>
-              </div>
-
-              <div class="form-group">
-                <label for="email" class="form-label">Email Address *</label>
-                <input type="email" id="email" name="email" class="form-input" placeholder="Email address for reply" required>
-              </div>
-
-              <div class="form-group full-width">
-                <label for="phone" class="form-label">Phone Number *</label>
-                <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 000-0000" required>
-              </div>
-            </div>
-
-            <div class="form-nav-btns" style="justify-content:flex-end;">
-              <button type="button" class="cta-button" data-next-step>Next: Event Overview ↗</button>
-            </div>
-          </div>
-
-          <!-- STEP 2: EVENT DETAILS -->
-          <div class="form-step">
-            <h3 style="font-family:var(--font-editorial); color:#fff; font-size:1.3rem; margin-bottom:1.5rem;">Event Overview</h3>
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="event-type" class="form-label">Event Category *</label>
-                <select id="event-type" name="event_type" class="form-select" required>
-                  <option value="Private Dining">Private Dining / Multi-Course Dinner</option>
-                  <option value="Celebration">Celebration / Anniversary / Birthday</option>
-                  <option value="Cocktail Reception">Cocktail & Hors d'Oeuvres Reception</option>
-                  <option value="Corporate Event">Corporate / Hosted Hospitality</option>
-                  <option value="Other">Other Custom Event</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="event-date" class="form-label">Desired Event Date *</label>
-                <input type="date" id="event-date" name="event_date" class="form-input" required>
-              </div>
-
-              <div class="form-group">
-                <label for="guest-count" class="form-label">Estimated Guest Count *</label>
-                <input type="number" id="guest-count" name="guest_count" class="form-input" min="1" max="250" value="10" required>
-              </div>
-
-              <div class="form-group">
-                <label for="location" class="form-label">City / Venue Location *</label>
-                <input type="text" id="location" name="location" class="form-input" placeholder="e.g. Charlotte, NC or venue name" required>
-              </div>
-            </div>
-
-            <div class="form-nav-btns">
-              <button type="button" class="cta-button" style="background:transparent; border-color:var(--border-subtle); color:#fff;" data-prev-step>&lsaquo; Back</button>
-              <button type="button" class="cta-button" data-next-step>Next: Culinary Vision ↗</button>
-            </div>
-          </div>
-
-          <!-- STEP 3: CULINARY VISION & SUBMIT -->
-          <div class="form-step">
-            <h3 style="font-family:var(--font-editorial); color:#fff; font-size:1.3rem; margin-bottom:1.5rem;">Culinary Vision & Dietary Requirements</h3>
-            <div class="form-grid">
-              <div class="form-group full-width">
-                <label for="dietary-notes" class="form-label">Dietary Restrictions & Allergies</label>
-                <textarea id="dietary-notes" name="dietary_notes" class="form-textarea" placeholder="List any known guest allergies, vegetarian/gluten-free requirements, or dietary preferences..."></textarea>
-              </div>
-
-              <div class="form-group full-width">
-                <label for="vision-notes" class="form-label">Menu Vision & Additional Notes</label>
-                <textarea id="vision-notes" name="vision_notes" class="form-textarea" placeholder="Describe the atmosphere, favorite flavor profiles, or specific courses you envision for your event..."></textarea>
-              </div>
-            </div>
-
-            <div style="margin-top:1rem; padding:1.25rem; background:rgba(255,255,255,0.03); border:1px solid var(--border-subtle); border-radius:4px; font-size:0.85rem; color:var(--text-dim); line-height:1.6; margin-bottom:2rem;">
-              <strong>Booking Disclaimer:</strong> Submitting this inquiry is an initial request to evaluate event availability and menu design. It does not constitute a confirmed reservation or binding contract. We will review your inquiry details and contact you regarding availability and next steps.
-            </div>
-
-            <div class="form-nav-btns">
-              <button type="button" class="cta-button" style="background:transparent; border-color:var(--border-subtle); color:#fff;" data-prev-step>&lsaquo; Back</button>
-              <button type="submit" class="cta-button" style="padding:0.9rem 2.2rem;">Submit Event Inquiry ↗</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </section>
+  <header class="culinary-header"><a href="/" class="brand-mark" aria-label="Dark Star Culinary home"><svg class="brand-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#dfb260" stroke-width="6"/><circle cx="50" cy="50" r="20" fill="#dfb260"/></svg><span class="brand-title">DARK STAR CULINARY</span></a><nav class="culinary-nav" aria-label="Main navigation"><a href="/" class="nav-link">Home</a><a href="/about.html" class="nav-link">About</a><a href="/gallery.html" class="nav-link">Gallery</a><a href="/private-events.html" class="nav-link active">Private Events</a><a href="/contact.html" class="nav-link">Contact</a></nav><div class="header-actions"><a href="/private-events.html" class="cta-button">Inquire ↗</a><button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button></div></header>
+  <main style="padding-top:6rem">
+    <section class="section-wrapper"><div class="split-feature"><div class="split-media"><img src="/media/gallery/culinary-029.webp" alt="Dark Star Culinary event grazing table" loading="eager"></div><div class="split-copy"><span class="eyebrow">PRIVATE EVENTS</span><h1>Start with the event you actually want.</h1><p>Use the intake below to give us the useful pieces: date, location, guest count, dietary requirements, and what you want the room to feel like. The inquiry is reviewed before availability or a menu is confirmed.</p><p>This is not an instant-booking widget pretending a custom event is a haircut appointment. The details matter.</p></div></div></section>
+    <section class="section-wrapper rule"><div class="section-header"><span class="eyebrow">EVENT INTAKE</span><h2 class="section-title">Tell us what you are planning.</h2><p class="section-copy">Submitting this form starts the conversation. It does not create a reservation or contract.</p></div><div class="step-form-wrapper"><form id="private-event-form" name="private-event-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/private-events.html?submitted=true"><input type="hidden" name="form-name" value="private-event-inquiry"><p hidden><label>Do not fill this out: <input name="bot-field"></label></p><div class="step-indicator-bar"><div class="step-dot is-active"><span class="step-num-badge">1</span><span>Host</span></div><div class="step-dot"><span class="step-num-badge">2</span><span>Event</span></div><div class="step-dot"><span class="step-num-badge">3</span><span>Food</span></div></div>
+      <div class="form-step is-active"><h3 style="font:600 1.25rem/1.2 var(--font-display);margin-bottom:1.5rem">Host Information</h3><div class="form-grid"><div class="form-group"><label class="form-label" for="host-name">Full Name *</label><input class="form-input" id="host-name" name="host_name" required autocomplete="name"></div><div class="form-group"><label class="form-label" for="event-email">Email *</label><input class="form-input" type="email" id="event-email" name="email" required autocomplete="email"></div><div class="form-group full-width"><label class="form-label" for="phone">Phone *</label><input class="form-input" type="tel" id="phone" name="phone" required autocomplete="tel"></div></div><div class="form-nav-btns" style="justify-content:flex-end"><button type="button" class="cta-button" data-next-step>Next: Event ↗</button></div></div>
+      <div class="form-step"><h3 style="font:600 1.25rem/1.2 var(--font-display);margin-bottom:1.5rem">Event Overview</h3><div class="form-grid"><div class="form-group"><label class="form-label" for="event-type">Event Type *</label><select class="form-select" id="event-type" name="event_type" required><option value="Private Dining">Private Dining / Multi-Course Dinner</option><option value="Celebration">Celebration</option><option value="Cocktail Reception">Cocktail / Hors d'Oeuvres Reception</option><option value="Corporate Event">Corporate / Hosted Hospitality</option><option value="Other">Other Custom Event</option></select></div><div class="form-group"><label class="form-label" for="event-date">Desired Date *</label><input class="form-input" type="date" id="event-date" name="event_date" required></div><div class="form-group"><label class="form-label" for="guest-count">Estimated Guests *</label><input class="form-input" type="number" id="guest-count" name="guest_count" min="1" max="250" required></div><div class="form-group"><label class="form-label" for="location">City / Venue *</label><input class="form-input" id="location" name="location" required></div></div><div class="form-nav-btns"><button type="button" class="ghost-button" data-prev-step>‹ Back</button><button type="button" class="cta-button" data-next-step>Next: Food ↗</button></div></div>
+      <div class="form-step"><h3 style="font:600 1.25rem/1.2 var(--font-display);margin-bottom:1.5rem">Culinary Vision</h3><div class="form-grid"><div class="form-group full-width"><label class="form-label" for="dietary-notes">Dietary Restrictions & Allergies</label><textarea class="form-textarea" id="dietary-notes" name="dietary_notes" placeholder="Known allergies, vegetarian or vegan needs, gluten-free requirements, religious restrictions, or other dietary considerations."></textarea></div><div class="form-group full-width"><label class="form-label" for="vision-notes">What are you imagining?</label><textarea class="form-textarea" id="vision-notes" name="vision_notes" placeholder="Style of service, favorite flavors, courses, atmosphere, special requests, or anything else that matters."></textarea></div></div><div style="padding:1rem 1.1rem;border:1px solid var(--line);border-radius:5px;color:var(--muted);font-size:.84rem;line-height:1.6"><strong style="color:var(--text)">Booking note:</strong> This submission is an inquiry only. Availability, scope, pricing, menu, and service details are confirmed separately in writing.</div><div class="form-nav-btns"><button type="button" class="ghost-button" data-prev-step>‹ Back</button><button type="submit" class="cta-button">Submit Inquiry ↗</button></div></div>
+    </form></div></section>
+    <section class="section-wrapper rule"><div class="section-header"><span class="eyebrow">EVENT WORK</span><h2 class="section-title">A few frames from service.</h2></div><div class="feature-grid"><div class="feature-tile" data-lightbox-src="/media/gallery/culinary-030.webp" data-lightbox-title="Holiday Table Service" data-lightbox-category="Events & Catering" tabindex="0" role="button"><img src="/media/gallery/culinary-030.webp" alt="Holiday event table service"><div class="feature-overlay"><b>Holiday Table Service</b><small>Events & catering</small></div></div><div class="feature-tile" data-lightbox-src="/media/gallery/culinary-031.webp" data-lightbox-title="Red-Lit Event Service" data-lightbox-category="Events & Catering" tabindex="0" role="button"><img src="/media/gallery/culinary-031.webp" alt="Red-lit event service"><div class="feature-overlay"><b>Red-Lit Event</b><small>Atmosphere preserved</small></div></div><div class="feature-tile" data-lightbox-src="/media/gallery/culinary-032.webp" data-lightbox-title="Live-Fire Event Service" data-lightbox-category="Events & Catering" tabindex="0" role="button"><img src="/media/gallery/culinary-032.webp" alt="Live-fire event service"><div class="feature-overlay"><b>Live-Fire Service</b><small>Event execution</small></div></div><div class="feature-tile" data-lightbox-src="/media/gallery/culinary-033.webp" data-lightbox-title="Catering Service" data-lightbox-category="Events & Catering" tabindex="0" role="button"><img src="/media/gallery/culinary-033.webp" alt="Catering service"><div class="feature-overlay"><b>Catering Service</b><small>Event preparation</small></div></div></div></section>
   </main>
-
-  <!-- FOOTER -->
-  <footer class="culinary-footer">
-    <div class="footer-content">
-      <a href="https://darkstarconsultinggroup.com" class="universe-gateway" aria-label="Return to Dark Star Universe Central Hub">
-        <svg style="width:24px; height:24px; fill:var(--accent-amber);" viewBox="0 0 100 100">
-          <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36"/>
-        </svg>
-        <div style="text-align:left;">
-          <h4 style="font-family:var(--font-editorial); color:#fff; font-size:0.95rem;">DARK STAR UNIVERSE</h4>
-          <p style="font-size:0.8rem; color:var(--text-muted);">Central Ecosystem Hub</p>
-        </div>
-      </a>
-
-      <p style="font-size:0.85rem; color:var(--text-dim);">
-        © 2026 Dark Star Culinary. Executive Chef Devin O'Rourke. Charlotte, NC. Member of Dark Star Ecosystem.
-      </p>
-    </div>
-  </footer>
-
+  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Culinary photography lightbox"><div class="lightbox-content"><button class="lightbox-close" aria-label="Close">&times;</button><button class="lightbox-nav prev" aria-label="Previous">&lsaquo;</button><button class="lightbox-nav next" aria-label="Next">&rsaquo;</button><img src="" alt="" class="lightbox-img"><div class="lightbox-caption"><div class="lightbox-title"></div><div class="lightbox-sub"></div></div></div></div>
+  <footer class="culinary-footer"><div class="footer-content"><a class="footer-brand" href="https://darkstarconsultinggroup.com"><svg viewBox="0 0 100 100"><polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36"/></svg><div><strong>DARK STAR CONSULTING GROUP</strong><span>Return to the main site</span></div></a><div class="footer-meta">© 2026 Dark Star Culinary · Charlotte, NC<br><a href="mailto:culinary@darkstarconsultinggroup.com">culinary@darkstarconsultinggroup.com</a></div></div></footer>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
