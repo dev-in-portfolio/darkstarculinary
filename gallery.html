@@ -1,165 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Culinary Gallery & Portfolio | Dark Star Culinary</title>
-  <meta name="description" content="Official photography portfolio of Dark Star Culinary led by Executive Chef Devin O'Rourke. Explore real entree platings, hearth cooking, beverage pairings, and dining atmosphere.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23080706' stroke='%23dfb260' stroke-width='6'/><circle cx='50' cy='50' r='18' fill='%23dfb260'/></svg>">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Culinary Gallery | Dark Star Culinary</title>
+  <meta name="description" content="A real photography portfolio from Dark Star Culinary: plated work, events, catering, and behind-the-scenes kitchen preparation.">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-
-  <!-- HEADER NAVIGATION -->
-  <header class="culinary-header">
-    <a href="/" class="brand-mark" aria-label="Dark Star Culinary Home">
-      <svg class="brand-svg" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="45" fill="none" stroke="#dfb260" stroke-width="6"/>
-        <circle cx="50" cy="50" r="20" fill="#dfb260"/>
-      </svg>
-      <span class="brand-title">DARK STAR CULINARY</span>
-    </a>
-
-    <nav class="culinary-nav" aria-label="Main Navigation">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/about.html" class="nav-link">About</a>
-      <a href="/gallery.html" class="nav-link active">Gallery</a>
-      <a href="/private-events.html" class="nav-link">Private Events</a>
-      <a href="/contact.html" class="nav-link">Contact</a>
-    </nav>
-
-    <div style="display:flex; align-items:center; gap:1rem;">
-      <a href="/private-events.html" class="cta-button">Inquire ↗</a>
-      <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-      </button>
-    </div>
-  </header>
-
-  <main style="padding-top: 8rem;">
+  <header class="culinary-header"><a href="/" class="brand-mark" aria-label="Dark Star Culinary home"><svg class="brand-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#dfb260" stroke-width="6"/><circle cx="50" cy="50" r="20" fill="#dfb260"/></svg><span class="brand-title">DARK STAR CULINARY</span></a><nav class="culinary-nav" aria-label="Main navigation"><a href="/" class="nav-link">Home</a><a href="/about.html" class="nav-link">About</a><a href="/gallery.html" class="nav-link active">Gallery</a><a href="/private-events.html" class="nav-link">Private Events</a><a href="/contact.html" class="nav-link">Contact</a></nav><div class="header-actions"><a href="/private-events.html" class="cta-button">Inquire ↗</a><button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button></div></header>
+  <main style="padding-top:6rem">
     <section class="section-wrapper">
-      <div class="section-header">
-        <span class="hero-tag">PHOTOGRAPHY PORTFOLIO</span>
-        <h1 class="section-title">Culinary Work & Atmosphere</h1>
-        <p style="color:var(--text-muted); max-width:680px; margin:1rem auto 0; font-size:1.05rem; line-height:1.7;">
-          Documentary photography of chef preparations, live-fire cooking, dining setups, and custom food service.
-        </p>
-      </div>
-
-      <div class="gallery-grid">
-        <!-- ITEM 1 -->
-        <div class="gallery-card" data-lightbox-src="/images/featured-steak.jpg" data-lightbox-title="Chef Entrée Plating" data-lightbox-category="Culinary Work" tabindex="0" role="button" aria-label="Expand image: Chef Entrée Plating">
-          <div class="gallery-img-wrapper">
-            <img src="/images/featured-steak.jpg" alt="Chef Entrée Plating" loading="lazy">
-          </div>
-          <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Chef Entrée Plating</h3>
-            <p class="gallery-card-desc">Sear execution with seasonal reduction and crisp garnishes.</p>
-          </div>
-        </div>
-
-        <!-- ITEM 2 -->
-        <div class="gallery-card" data-lightbox-src="/images/wood-fired-hearth.jpg" data-lightbox-title="Live Fire & Hearth Kitchen" data-lightbox-category="Hearth Cooking" tabindex="0" role="button" aria-label="Expand image: Live Fire & Hearth Kitchen">
-          <div class="gallery-img-wrapper">
-            <img src="/images/wood-fired-hearth.jpg" alt="Live Fire & Hearth Kitchen" loading="lazy">
-          </div>
-          <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Live Fire & Hearth</h3>
-            <p class="gallery-card-desc">Wood-fired hearth preparation and high-heat searing.</p>
-          </div>
-        </div>
-
-        <!-- ITEM 3 -->
-        <div class="gallery-card" data-lightbox-src="/images/featured-flatbread.jpg" data-lightbox-title="Hearth Flatbread Preparation" data-lightbox-category="Artisanal Baking" tabindex="0" role="button" aria-label="Expand image: Hearth Flatbread Preparation">
-          <div class="gallery-img-wrapper">
-            <img src="/images/featured-flatbread.jpg" alt="Hearth Flatbread Preparation" loading="lazy">
-          </div>
-          <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Hearth Flatbread</h3>
-            <p class="gallery-card-desc">Freshly fired crust with herbs and artisanal oils.</p>
-          </div>
-        </div>
-
-        <!-- ITEM 4 -->
-        <div class="gallery-card" data-lightbox-src="/images/cosmic-cocktail.jpg" data-lightbox-title="Beverage Program & Pairing" data-lightbox-category="Beverage Service" tabindex="0" role="button" aria-label="Expand image: Beverage Program & Pairing">
-          <div class="gallery-img-wrapper">
-            <img src="/images/cosmic-cocktail.jpg" alt="Beverage Program & Pairing" loading="lazy">
-          </div>
-          <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Beverage Program</h3>
-            <p class="gallery-card-desc">Handcrafted cocktail and wine pairing curation for private dining.</p>
-          </div>
-        </div>
-
-        <!-- ITEM 5 -->
-        <div class="gallery-card" data-lightbox-src="/images/lounge-ambiance.jpg" data-lightbox-title="Dining Lounge Atmosphere" data-lightbox-category="Event Atmosphere" tabindex="0" role="button" aria-label="Expand image: Dining Lounge Atmosphere">
-          <div class="gallery-img-wrapper">
-            <img src="/images/lounge-ambiance.jpg" alt="Dining Lounge Atmosphere" loading="lazy">
-          </div>
-          <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Lounge Atmosphere</h3>
-            <p class="gallery-card-desc">Warm hospitality setting designed for memorable dining gatherings.</p>
-          </div>
-        </div>
-
-        <!-- ITEM 6 -->
-        <div class="gallery-card" data-lightbox-src="/images/estate-dining.jpg" data-lightbox-title="Estate Dining Setup" data-lightbox-category="Private Hospitality" tabindex="0" role="button" aria-label="Expand image: Estate Dining Setup">
-          <div class="gallery-img-wrapper">
-            <img src="/images/estate-dining.jpg" alt="Estate Dining Setup" loading="lazy">
-          </div>
-          <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Estate Dining Setup</h3>
-            <p class="gallery-card-desc">Custom table arrangements for intimate multi-course occasions.</p>
-          </div>
-        </div>
-
-        <!-- ITEM 7 -->
-        <div class="gallery-card" data-lightbox-src="/images/tasting-presentation.jpg" data-lightbox-title="Tasting Course Presentation" data-lightbox-category="Culinary Plating" tabindex="0" role="button" aria-label="Expand image: Tasting Course Presentation">
-          <div class="gallery-img-wrapper">
-            <img src="/images/tasting-presentation.jpg" alt="Tasting Course Presentation" loading="lazy">
-          </div>
-          <div class="gallery-card-body">
-            <h3 class="gallery-card-title">Tasting Course</h3>
-            <p class="gallery-card-desc">Refined course plating with precise flavor balance.</p>
-          </div>
-        </div>
-      </div>
+      <div class="section-header"><span class="eyebrow">REAL CULINARY PHOTOGRAPHY</span><h1 class="section-title">The Work</h1><p class="section-copy">Thirty-seven selected images from the Dark Star Culinary archive. No stock photography. No invented dishes. Just plated work, events, catering, and the kitchen behind it.</p></div>
+      <div class="gallery-toolbar" aria-label="Gallery filters"><button class="filter-btn is-active" data-gallery-filter="all">All</button><button class="filter-btn" data-gallery-filter="plated">Plated Work</button><button class="filter-btn" data-gallery-filter="events">Events & Catering</button><button class="filter-btn" data-gallery-filter="behind-scenes">Behind the Scenes</button></div>
+      <div id="gallery-grid" class="gallery-grid"></div>
     </section>
   </main>
-
-  <!-- LIGHTBOX MODAL DIALOG -->
-  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Culinary Photography Lightbox">
-    <div class="lightbox-content">
-      <button class="lightbox-close" aria-label="Close image lightbox">&times;</button>
-      <button class="lightbox-nav prev" aria-label="Previous photo">&lsaquo;</button>
-      <button class="lightbox-nav next" aria-label="Next photo">&rsaquo;</button>
-      <img src="" alt="" class="lightbox-img">
-      <div class="lightbox-caption">
-        <div class="lightbox-title"></div>
-        <div class="lightbox-sub"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="culinary-footer">
-    <div class="footer-content">
-      <a href="https://darkstarconsultinggroup.com" class="universe-gateway" aria-label="Return to Dark Star Universe Central Hub">
-        <svg style="width:24px; height:24px; fill:var(--accent-amber);" viewBox="0 0 100 100">
-          <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36"/>
-        </svg>
-        <div style="text-align:left;">
-          <h4 style="font-family:var(--font-editorial); color:#fff; font-size:0.95rem;">DARK STAR UNIVERSE</h4>
-          <p style="font-size:0.8rem; color:var(--text-muted);">Central Ecosystem Hub</p>
-        </div>
-      </a>
-
-      <p style="font-size:0.85rem; color:var(--text-dim);">
-        © 2026 Dark Star Culinary. Executive Chef Devin O'Rourke. Charlotte, NC. Member of Dark Star Ecosystem.
-      </p>
-    </div>
-  </footer>
-
+  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Culinary photography lightbox"><div class="lightbox-content"><button class="lightbox-close" aria-label="Close">&times;</button><button class="lightbox-nav prev" aria-label="Previous">&lsaquo;</button><button class="lightbox-nav next" aria-label="Next">&rsaquo;</button><img src="" alt="" class="lightbox-img"><div class="lightbox-caption"><div class="lightbox-title"></div><div class="lightbox-sub"></div></div></div></div>
+  <footer class="culinary-footer"><div class="footer-content"><a class="footer-brand" href="https://darkstarconsultinggroup.com"><svg viewBox="0 0 100 100"><polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36"/></svg><div><strong>DARK STAR CONSULTING GROUP</strong><span>Return to the main site</span></div></a><div class="footer-meta">© 2026 Dark Star Culinary · Charlotte, NC<br><a href="mailto:culinary@darkstarconsultinggroup.com">culinary@darkstarconsultinggroup.com</a></div></div></footer>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
